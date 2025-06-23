@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>I.S.F.D. y T. N° 57 "JUANA PAULA MANSO" </title>
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+<!-- Navbar -->
+ <!-- Barra de navegación principal con enlaces a las distintas secciones del sitio -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">I.S.F.D. y T. N° 57 "JUANA PAULA MANSO" </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegación">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link active" href="student.html">Estudiantes</a></li>
+                <li class="nav-item"><a class="nav-link" href="./carrera.html">Carreras</a></li>
+                <li class="nav-item"><a class="nav-link" href="./categorias.html">Categorías</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container my-5">
+    <!-- contenido principal de la página -->
+</div>
+
+<h1 class="mb-3">Formulario de Gestión de Estudiantes</h1>
+
+<!-- Registrar estudiante -->
+<section>
+    <h2>Registrar estudiante</h2>
+    <div class="input-group mb-2">
+        <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+        <input type="text" id="registerName" class="form-control" placeholder="Nombre completo">
+    </div>
+
+    <div class="input-group mb-2">
+        <span class="input-group-text"><i class="bi bi-journal-bookmark-fill"></i></span>
+        <select id="registerCareer" class="form-control">
+            <option value="">Selecciona una carrera</option>
+    
+        </select>
+    </div>
+
+    <button class="btn btn-primary btn-sm" onclick="validateAndRegister()">Registrar</button>
+    <div class="form-text text-danger" id="registerError" style="display: none;">Completa todos los campos.</div>
+    <pre id="registerResult" class="mt-2"></pre>
+       
+    <!-- Campo de nombre del estudiante -->
+    <!-- Select de carrera: opciones se cargan dinámicamente desde la API -->
+    <!-- Botón que valida y envía el formulario -->
+    <!-- Mensaje de error si faltan datos -->
+</section>
+
+<!-- Buscar estudiante por ID -->
+<section>
+    <h2>Buscar estudiante por ID</h2>
+    <div class="input-group mb-2">
+        <span class="input-group-text"><i class="bi bi-hash"></i></span>
+        <input type="number" id="studentId" class="form-control" placeholder="ID del estudiante">
+    </div>
+    <button class="btn btn-success btn-sm" onclick="validateAndGetStudent()">Buscar</button>
+    <div class="form-text text-danger" id="getError" style="display: none;">Ingresá un ID válido.</div>
+    <pre id="getResult" class="mt-2"></pre>
+    <!-- Campo de ID -->
+    <!-- Botón de búsqueda + mensaje de error -->
+</section>
+
+<!-- Buscar estudiantes por carrera -->
+<section>
+    <h2>Buscar por carrera</h2>
+    <div class="input-group mb-2">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <select id="careerFilter" class="form-control">
+            <option value="">Selecciona una carrera</option>
+            <option value="Profesorado de Educación Inicial">Profesorado de Educación Inicial</option>
+            <option value="Profesorado de Inglés">Profesorado de Inglés</option>
+            <option value="Tecnicatura en Enfermería">Tecnicatura en Enfermería</option>
+            <option value="Tecnicatura en Ciencia de Datos e IA">Tecnicatura en Ciencia de Datos e IA</option>
+            <option value="Especialización en Salud Mental">Especialización en Salud Mental</option>
+        </select>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="validateAndGetByCareer()">Buscar</button>
+
+    <div class="form-text text-danger" id="careerError" style="display: none;">Ingresá una carrera.</div>
+    <pre id="careerResult" class="mt-2"></pre>
+     <!-- Select fijo con listado de carreras -->
+    <!-- Botón de búsqueda + mensaje de error -->
+</section>
+
+<!-- Eliminar estudiante -->
+<section>
+    <h2>Eliminar estudiante</h2>
+    <div class="input-group mb-2">
+        <span class="input-group-text"><i class="bi bi-trash-fill"></i></span>
+        <input type="number" id="deleteId" class="form-control" placeholder="ID del estudiante a eliminar">
+    </div>
+    <button class="btn btn-danger btn-sm" onclick="validateAndDelete()">Eliminar</button>
+    <div class="form-text text-danger" id="deleteError" style="display: none;">Ingresá un ID válido.</div>
+    <pre id="deleteResult" class="mt-2"></pre>
+       <!-- Campo de ID del estudiante a eliminar -->
+    <!-- Botón de eliminación + mensaje de error -->
+</section>
+
+
+<!-- Scripts -->
+ <!-- Scripts necesarios para Bootstrap, alertas y lógica del sistema -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
+
+
