@@ -6,13 +6,14 @@ const PORT = 5001;
 
 // API Key ficticia
 const API_KEY = '12345ABCDEF';
-
+// Nota: En un entorno real, la API Key debería ser almacenada de forma segura, por ejemplo, en variables de entorno.
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Archivo donde se almacenan los estudiantes
 const STUDENTS_FILE = './students.json';
+
 
 // Función para leer estudiantes desde archivo
 function loadStudents() {
