@@ -2,6 +2,7 @@
 // Archivo app.js
 // Contiene las funciones principales de interacción con el backend (API)
 // para gestionar estudiantes, carreras y categorías.
+//DEFINICIÓN DE URLS Y HEADERS: se definen las URLs de la API para estudiantes,carreras y categorias, asi como los headers necesarios para las peticiones.
 // ===========================
 const API_STUDENTS_URL = "http://localhost:5001/api/students";
 const API_CAREERS_URL = "http://localhost:5001/api/careers";
@@ -12,7 +13,7 @@ const headers = {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${API_KEY}`
 };
-
+// Servicios de comunicación con la API: se crean funciones asíncronas para: registrar, buscar y eliminar estudiantes. Registrar, buscar y eliminar carreras y categorias. Estas funciones usan fetch para  enviar y recibir datos del backend.
 // Servicio para registrar un nuevo estudiante en la API
 // Recibe nombre y carrera, los envía por POST
 async function registerStudentService(name, career) {
@@ -63,6 +64,46 @@ async function getAllCareersService() {
 async function getAllStudentsService() {
     const response = await fetch(API_STUDENTS_URL, {
         headers
+    });
+    return response.json();
+}
+
+// Servicio para guardar una categoría. Toma los datos del formulario y los envía por POST a la API
+async function registerCategoryService(name) {
+    const response = await fetch(API_CATEGORIES_URL, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ name })
+    });
+    return response.json();
+}
+
+// Servicio para buscar una categoría por ID
+async function getCategoryByIdService(id) {
+    const response = await fetch(`${API_CATEGORIES_URL}/${id}`, {
+        method: "GET",
+        headers
+    });
+    return response.json();
+}
+
+// Servicio para eliminar una categoría por ID
+async function deleteCategoryService(id) {
+    const response = await fetch(`${API_CATEGORIES_URL}/${id}`, {
+        method: "DELETE",
+        headers
+    });
+    return response.json();
+}
+
+// Servicio para registrar una nueva carrera en la API
+async function registerCareersService(name, code = null, category, duration, type) {
+    //Random de 4 digitos para code
+    code = Math.floor(1000 + Math.random() * 9000).toString(); // Genera un código aleatorio de 4 dígitos
+    const response = await fetch(API_CAREERS_URL, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ name, code, category, duration, type })
     });
     return response.json();
 }
@@ -124,7 +165,7 @@ error.classList.add('d-none');    // Para ocultar
     }
 }
 
-// Funciones de lógica principal
+// Funciones de lógica principal: Se implementan funciones que validan los datos ingresados por el usuario en los formularios. Llaman a los servicios de la API. Muestran mensajes de éxito o error usando alertas según la repuesta de la API. Actualizan la interfaz, limpiando campos o mostrando resultados.
 // Registra un nuevo estudiante y muestra una alerta de éxito o error
 // Limpia los campos del formulario y actualiza la tabla (si existe)
 async function registerStudent() {
@@ -135,7 +176,6 @@ async function registerStudent() {
     try {
         const result = await registerStudentService(name, career);
         Swal.fire({
-            position: "top-end",
             icon: "success",
             title: "¡Registro exitoso!",
             showConfirmButton: false,
@@ -182,7 +222,8 @@ async function getStudentsByCareer() {
     const career = document.getElementById('careerFilter')?.value.trim();
     const resultContainer = document.getElementById('careerResult');
 
-    // ✅ Ya se validó antes, así que no volvemos a chequear si career está vacío
+    // ✅ Ya se validó antes, así que
+    //  no volvemos a chequear si career está vacío
 
     try {
         const students = await getStudentsByCareerService(career);
@@ -230,6 +271,7 @@ async function deleteStudent() {
         Swal.fire("Error", "Ocurrió un error inesperado.", "error");
     }
 }
+//Carga dinámica de datos: al cargar la página, algunas funciones obtienen datos de la API (como el listado de carreras) paera llenar sectores o tablas de manera dinámica.
 // (Opcional) Carga todos los estudiantes en una tabla
 // ⚠️ Verifica antes si existe el contenedor de tabla para evitar errores
 async function cargarTablaEstudiantes() {
@@ -277,35 +319,28 @@ async function cargarSelectCarreras() {
 // Guarda una nueva carrera con todos sus datos en la API
 async function guardarCarrera() {
     const nombre = document.getElementById("nombre")?.value.trim();
-    const codigo = document.getElementById("codigo")?.value.trim();
-    const categoria = document.getElementById("categoria")?.value.trim();
+    // const codigo = document.getElementById("codigo")?.value.trim(); // si tu backend lo requiere
+    const categoria = document.getElementById("categoria")?.value;
     const duracion = document.getElementById("duracion")?.value.trim();
-    const tipo = document.getElementById("tipo")?.value.trim();
+    const tipo = document.getElementById("tipo")?.value;
 
-    if (!nombre || !codigo || !categoria || !duracion || !tipo) {
+    if (
+        !nombre ||
+        // !codigo || // si tu backend lo requiere
+        !duracion ||
+        !categoria || categoria === "Seleccione una categoría" ||
+        !tipo || tipo === "Seleccione un tipo"
+    ) {
         Swal.fire("Campos incompletos", "Por favor completá todos los campos", "warning");
         return;
     }
 
     try {
-        const response = await fetch(API_CAREERS_URL, {
-            method: "POST",
-            headers,
-            body: JSON.stringify({
-                name: nombre,
-                code: codigo,
-                category: categoria,
-                duration: duracion,
-                type: tipo
-            })
-        });
-
-        const data = await response.json();
-
-        if (data.career || data.success) {
+        const data = await registerCareersService(nombre, null, categoria, duracion, tipo);
+        if (data.id) {
             Swal.fire("¡Éxito!", "Carrera guardada correctamente", "success");
             document.getElementById("nombre").value = '';
-            document.getElementById("codigo").value = '';
+            // document.getElementById("codigo").value = '';
             document.getElementById("categoria").value = '';
             document.getElementById("duracion").value = '';
             document.getElementById("tipo").value = '';
@@ -380,21 +415,155 @@ async function filtrarCarrera() {
     }
 }
 
+// Funciones para categorías
+// Guarda una nueva categoría en la API
+async function guardarCategoria() {
+    const nombre = document.getElementById("nombreCategoria")?.value.trim();
+    const error = document.getElementById("registerCategoryError");
+    const result = document.getElementById("registerCategoryResult");
+    if (!nombre) {
+        error.style.display = "block";
+        return;
+    }
+    error.style.display = "none";
+    try {
+        const response = await fetch(API_CATEGORIES_URL, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ name: nombre })
+        });
+        const data = await response.json();
+        console.log(data); // <-- Agrega esta línea aquí
+
+        // Cambia esta validación:
+        if (data.category && data.category.id) {
+            Swal.fire("¡Éxito!", "Categoría guardada correctamente", "success");
+            document.getElementById("nombreCategoria").value = '';
+            result.textContent = JSON.stringify(data.category, null, 2);
+        } else {
+            Swal.fire("Error", data.error || "No se pudo guardar la categoría", "error");
+        }
+    } catch (err) {
+        Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+    }
+}
+
+// Lógica para buscar categoría
+async function buscarCategoria() {
+    const id = document.getElementById("categoryId")?.value.trim();
+    const error = document.getElementById("getCategoryError");
+    const result = document.getElementById("getCategoryResult");
+    if (!id) {
+        error.style.display = "block";
+        return;
+    }
+    error.style.display = "none";
+    try {
+        const data = await getCategoryByIdService(id);
+        if (data.id) {
+            result.textContent = JSON.stringify(data, null, 2);
+        } else {
+            result.textContent = "No encontrada";
+        }
+    } catch (err) {
+        result.textContent = "Error al buscar";
+    }
+}
+
+// Lógica para eliminar categoría
+async function eliminarCategoria() {
+    const id = document.getElementById("deleteCategoryId")?.value.trim();
+    const error = document.getElementById("deleteCategoryError");
+    const result = document.getElementById("deleteCategoryResult");
+    if (!id) {
+        error.style.display = "block";
+        return;
+    }
+    error.style.display = "none";
+    try {
+        const response = await fetch(`${API_CATEGORIES_URL}/${id}`, {
+            method: "DELETE",
+            headers
+        });
+        const data = await response.json();
+        console.log(data); // Mira la respuesta real en consola
+
+        // Cambia la validación: si la respuesta fue exitosa (response.ok), muestra éxito
+        if (response.ok) {
+            Swal.fire("¡Éxito!", "Categoría eliminada correctamente", "success");
+            result.textContent = "";
+        } else if (data.error) {
+            Swal.fire("Error", data.error, "error");
+        } else {
+            Swal.fire("Error", "No se pudo eliminar la categoría", "error");
+        }
+    } catch (err) {
+        Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+    }
+}
+
 // Carga inicial
 // Carga inicial cuando se abre la página
 // Llama a funciones para llenar datos, registrar eventos, etc.
+// Manejo de eventos: se agregan listeners a los botones del html para que , al hacer click, se ejecuten las funciones correspondientes.
 
 document.addEventListener("DOMContentLoaded", () => {
-    cargarTablaEstudiantes();
-    cargarSelectCarreras();
-
     document.getElementById("btnGuardar")?.addEventListener("click", guardarCarrera);
-    document.getElementById("btnEliminarCarrera")?.addEventListener("click", eliminarCarrera);
-    document.getElementById("btnFiltrar")?.addEventListener("click", validateAndGetByCareer);
-;
-
-    document.getElementById("btnRegistrarEstudiante")?.addEventListener("click", validateAndRegister);
-document.getElementById("btnBuscarEstudiante")?.addEventListener("click", validateAndGetStudent);
-document.getElementById("btnBuscarPorCarrera")?.addEventListener("click", validateAndGetByCareer);
-document.getElementById("btnEliminarEstudiante")?.addEventListener("click", validateAndDelete);
 });
+
+async function eliminarEstudiante() {
+    const id = document.getElementById("deleteStudentId")?.value.trim();
+    if (!id) {
+        Swal.fire("Error", "Ingresá un ID válido", "warning");
+        return;
+    }
+    try {
+        const response = await fetch(`${API_STUDENTS_URL}/${id}`, {
+            method: "DELETE",
+            headers
+        });
+        const data = await response.json();
+        console.log(data); // Para ver la respuesta real
+
+        if (response.ok) {
+            Swal.fire("¡Éxito!", "Estudiante eliminado correctamente", "success");
+        } else if (data.error) {
+            Swal.fire("Error", data.error, "error");
+        } else {
+            Swal.fire("Error", "No se pudo eliminar el estudiante", "error");
+        }
+    } catch (err) {
+        Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+    }
+}
+
+async function guardarEstudiante() {
+    const nombre = document.getElementById("nombreEstudiante")?.value.trim();
+    const carrera = document.getElementById("carreraEstudiante")?.value.trim();
+    if (!nombre || !carrera) {
+        Swal.fire("Campos incompletos", "Por favor completá todos los campos", "warning");
+        return;
+    }
+    try {
+        const response = await fetch(API_STUDENTS_URL, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ name: nombre, career: carrera })
+        });
+        const data = await response.json();
+        console.log(data); // Ver la respuesta real
+
+        // Solo muestra éxito si la respuesta es correcta y tiene un id
+        if (response.ok && data.id) {
+            Swal.fire("¡Éxito!", "Estudiante registrado correctamente", "success");
+            document.getElementById("nombreEstudiante").value = '';
+            document.getElementById("carreraEstudiante").value = '';
+        } else if (data.error) {
+            Swal.fire("Error", data.error, "error");
+        } else {
+            Swal.fire("Error", "No se pudo registrar el estudiante", "error");
+        }
+    } catch (err) {
+        Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+    }
+}

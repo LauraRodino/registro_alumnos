@@ -29,18 +29,16 @@
     <div class="container my-5">
         <h1 class="mb-4 text-center text-primary">Categorías</h1>
 
-        <!-- Registrar categoría -->
-        <section class="form-section p-4 shadow-sm rounded mb-4">
-            <h2>Registrar categoría</h2>
+        <!-- Registro de nueva categoría -->
+        <section>
+            <h2>Registrar nueva categoría</h2>
             <div class="mb-3">
                 <label for="nombreCategoria" class="form-label">Nombre</label>
                 <input type="text" id="nombreCategoria" class="form-control" placeholder="Ingrese el nombre de la categoría">
             </div>
             <button id="btnGuardarCategoria" class="btn btn-primary">Guardar Categoría</button>
-            <div class="form-text text-danger" id="registerCategoryError">Completa el campo.</div>
+            <div class="form-text text-danger" id="registerCategoryError" style="display: none;">Completa el campo.</div>
             <pre id="registerCategoryResult" class="mt-2"></pre>
-             <!-- Campo para nombre + botón de guardado -->
-        <!-- Mensaje de error y resultado -->
         </section>
 
         <!-- Buscar categoría por ID -->

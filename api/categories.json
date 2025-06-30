@@ -1,18 +1,30 @@
 [
   {
-    "id": 1,
-    "name": "Carrera test"
+    "id": 1748384124357,
+    "name": "Ciencia de datos"
   },
   {
-    "id": 2,
-    "name": "Ciencias de datos"
-  },
-  {
-    "id": 3,
-    "name": "ciencia de datos"
-  },
-  {
-    "id": 4,
+    "id": 1748307744017,
     "name": "ia"
+  },
+  {
+    "id": 1748307744018,
+    "name": "Profesorado de Educación Inicial"
+  },
+  {
+    "id": 1748307744019,
+    "name": "Profesorado de Inglés"
+  },
+  {
+    "id": 1748307744020,
+    "name": "Ciencia de Datos e Inteligencia Artificial",
+    "code": "7",
+    "category": "Informática",
+    "duration": "3",
+    "type": "Tecnicatura"
+  },
+  {
+    "id": 1748307744021,
+    "name": "Especialización en Salud Mental"
   }
 ]

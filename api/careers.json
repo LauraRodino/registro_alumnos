@@ -14,5 +14,29 @@
   {
     "id": 1748307744019,
     "name": "Profesorado de Inglés"
+  },
+  {
+    "id": 1748307744020,
+    "name": "Ciencia de Datos e Inteligencia Artificial",
+    "code": "7",
+    "category": "Informática",
+    "duration": "3",
+    "type": "Tecnicatura"
+  },
+  {
+    "id": 1748307744021,
+    "name": "ytest",
+    "code": "3730",
+    "category": "Ciencias Sociales",
+    "duration": "5",
+    "type": "Grado"
+  },
+  {
+    "id": 1748307744022,
+    "name": "test",
+    "code": "3568",
+    "category": "Ciencias Sociales",
+    "duration": "5",
+    "type": "Tecnicatura"
   }
 ]

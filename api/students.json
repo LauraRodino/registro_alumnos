@@ -1,10 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "dihuen",
-    "career": "Tecnologías de la Información"
-  },
-  {
     "id": 2,
     "name": "juanma",
     "career": "Ciencia de Datos"
@@ -115,18 +110,43 @@
     "career": "Ciencia de datos"
   },
   {
-    "id": 24,
-    "name": "carla carrera",
-    "career": "Ciencia de datos"
-  },
-  {
     "id": 25,
     "name": "carla carrera",
     "career": "ia"
   },
   {
-    "id": 26,
-    "name": "Laura Rodino",
+    "id": 27,
+    "name": "laura rodino",
+    "career": "Profesorado de Educación Inicial"
+  },
+  {
+    "id": 28,
+    "name": "fatima maciel",
+    "career": "ia"
+  },
+  {
+    "id": 29,
+    "name": "carla carrera",
+    "career": "Profesorado de Inglés"
+  },
+  {
+    "id": 30,
+    "name": "rodrigo sarmiento",
+    "career": "ia"
+  },
+  {
+    "id": 31,
+    "name": "hdfgjbknm,",
+    "career": "Profesorado de Educación Inicial"
+  },
+  {
+    "id": 32,
+    "name": "carla carrera",
+    "career": "Profesorado de Educación Inicial"
+  },
+  {
+    "id": 33,
+    "name": "callll",
     "career": "Ciencia de datos"
   }
 ]
