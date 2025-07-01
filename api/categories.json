@@ -1,9 +1,5 @@
 [
   {
-    "id": 1748384124357,
-    "name": "Ciencia de datos"
-  },
-  {
     "id": 1748307744017,
     "name": "ia"
   },
@@ -26,5 +22,25 @@
   {
     "id": 1748307744021,
     "name": "Especialización en Salud Mental"
+  },
+  {
+    "id": 1748307744022,
+    "name": "Enfermeria"
+  },
+  {
+    "id": 1748307744023,
+    "name": "Ciencia de Datos"
+  },
+  {
+    "id": 1748307744024,
+    "name": "Profesorado"
+  },
+  {
+    "id": 1748307744025,
+    "name": "matematica"
+  },
+  {
+    "id": 1748307744026,
+    "name": "Seguridad e Higiene"
   }
 ]

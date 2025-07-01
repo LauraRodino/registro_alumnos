@@ -42,7 +42,8 @@ async function getStudentsByCareerService(career) {
     });
     return response.json();
 }
-// Servicio para eliminar un estudiante por ID (DELETE)
+
+//servicio para eliminar un estudiante por ID
 async function deleteStudentService(id) {
     const response = await fetch(`${API_STUDENTS_URL}/${id}`, {
         method: "DELETE",
@@ -69,11 +70,11 @@ async function getAllStudentsService() {
 }
 
 // Servicio para guardar una categoría. Toma los datos del formulario y los envía por POST a la API
-async function registerCategoryService(name) {
+async function registerCategoryService(nombre) {
     const response = await fetch(API_CATEGORIES_URL, {
         method: "POST",
         headers,
-        body: JSON.stringify({ name })
+        body: JSON.stringify({ name: nombre })
     });
     return response.json();
 }
@@ -108,6 +109,15 @@ async function registerCareersService(name, code = null, category, duration, typ
     return response.json();
 }
 
+// Servicio para eliminar un estudiante por ID
+async function deleteStudentService(id) {
+    const response = await fetch(`${API_STUDENTS_URL}/${id}`, {
+        method: "DELETE",
+        headers
+    });
+    return response.json();
+}
+
 // Validaciones
 // Valida que los campos de nombre y carrera estén completos
 // Luego llama a la función de registro
@@ -135,35 +145,9 @@ error.classList.add('d-none');    // Para ocultar
         getStudentById();
     }
 }
-// Valida que se haya seleccionado una carrera antes de buscar por filtro
-function validateAndGetByCareer() {
-    const career = document.getElementById('careerFilter')?.value.trim();
-    const error = document.getElementById('careerError');
 
-    if (!career) {
-        // Mostrar error si el campo está vacío
-        error.classList.remove('d-none');
-        error.style.display = 'block';
-    } else {
-        // Ocultar el mensaje y continuar
-        error.classList.add('d-none');
-        error.style.display = 'none';
-        getStudentsByCareer(); // Solo se llama si el input es válido
-    }
-}
 
-// Valida que se haya ingresado un ID antes de intentar eliminar estudiante
-function validateAndDelete() {
-    const id = document.getElementById('deleteId')?.value.trim();
-    const error = document.getElementById('deleteError');
-    if (!id) {
-        error.classList.remove('d-none'); // Para mostrar
-error.classList.add('d-none');    // Para ocultar
-    } else {
-        error.style.display = 'none';
-        deleteStudent();
-    }
-}
+
 
 // Funciones de lógica principal: Se implementan funciones que validan los datos ingresados por el usuario en los formularios. Llaman a los servicios de la API. Muestran mensajes de éxito o error usando alertas según la repuesta de la API. Actualizan la interfaz, limpiando campos o mostrando resultados.
 // Registra un nuevo estudiante y muestra una alerta de éxito o error
@@ -250,19 +234,35 @@ async function getStudentsByCareer() {
         resultContainer.textContent = "No se pudo obtener la información.";
     }
 }
+//función de validación y eliminar estudiante
+function validateAndDelete() {
+    const id = document.getElementById('deleteId')?.value.trim();
+    const error = document.getElementById('deleteError');
+    if (!id) {
+        error.style.display = 'block';
+    } else {
+        error.style.display = 'none';
+        deleteStudent();
+    }
+}
 
-
-// Elimina un estudiante por ID y muestra mensaje de éxito o error
 async function deleteStudent() {
     const id = document.getElementById('deleteId')?.value.trim();
     const resultContainer = document.getElementById('deleteResult');
-
     try {
         const response = await deleteStudentService(id);
-        if (response.success || response.message === "Estudiante eliminado correctamente.") {
+        console.log(response);//<--aquí ves la respuesta real del backend
+        if (
+            response.success ||
+            response.message === "Estudiante eliminado correctamente." ||
+            response.message === "ok" ||
+            response.message === "Student deleted successfully."
+        ) {
             Swal.fire("Eliminado", "Estudiante eliminado con éxito", "success");
             resultContainer.textContent = "";
             await cargarTablaEstudiantes();
+        } else if (response.error) {
+            Swal.fire("Error", response.error, "error");
         } else {
             Swal.fire("Error", "No se pudo eliminar el estudiante.", "error");
         }
@@ -271,6 +271,7 @@ async function deleteStudent() {
         Swal.fire("Error", "Ocurrió un error inesperado.", "error");
     }
 }
+
 //Carga dinámica de datos: al cargar la página, algunas funciones obtienen datos de la API (como el listado de carreras) paera llenar sectores o tablas de manera dinámica.
 // (Opcional) Carga todos los estudiantes en una tabla
 // ⚠️ Verifica antes si existe el contenedor de tabla para evitar errores
@@ -278,7 +279,7 @@ async function cargarTablaEstudiantes() {
     const tabla = document.getElementById("tablaEstudiantes");
 
     // ⚠️ Si no hay tabla en el HTML, no sigas
-    if (!tabla) return;
+    if (!tabla) return;S
 
     try {
         const estudiantes = await getAllStudentsService();
@@ -302,8 +303,9 @@ async function cargarTablaEstudiantes() {
 async function cargarSelectCarreras() {
     const selectCareer = document.getElementById("registerCareer");
     if (!selectCareer) return;
+    selectCareer.innerHTML = '<option value="">Selecciona una carrera</option>'; // Limpia antes de cargar
     try {
-        const careers = await getAllCareersService();
+        const careers = await getAllCareersService(); // Debe devolver un array de carreras
         careers.forEach(career => {
             const option = document.createElement("option");
             option.value = career.name;
@@ -508,34 +510,110 @@ async function eliminarCategoria() {
 // Manejo de eventos: se agregan listeners a los botones del html para que , al hacer click, se ejecuten las funciones correspondientes.
 
 document.addEventListener("DOMContentLoaded", () => {
+    cargarSelectCarreras();
     document.getElementById("btnGuardar")?.addEventListener("click", guardarCarrera);
+    document.getElementById("btnGuardarCategoria").addEventListener("click", async () => {
+        const nombre = document.getElementById("nombreCategoria").value.trim();
+        const error = document.getElementById("registerCategoryError");
+        const result = document.getElementById("registerCategoryResult");
+        error.style.display = "none";
+        result.textContent = "";
+
+        if (!nombre) {
+            error.style.display = "block";
+            return;
+        }
+
+        try {
+            const data = await registerCategoryService(nombre);
+            console.log(data); // Para depuración
+
+            if (data && data.category && data.category.id && data.category.name) {
+                Swal.fire("¡Éxito!", "Categoría guardada correctamente", "success");
+                document.getElementById("nombreCategoria").value = "";
+                result.textContent = `ID: ${data.category.id} - Nombre: ${data.category.name}`;
+            } else {
+                Swal.fire("Error", data.error || "No se pudo guardar la categoría", "error");
+            }
+        } catch (err) {
+            Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+        }
+    });
+    document.getElementById("btnBuscarCategoria").addEventListener("click", async () => {
+        const id = document.getElementById("buscarCategoriaId").value.trim();
+        const error = document.getElementById("buscarCategoryError");
+        const result = document.getElementById("buscarCategoryResult");
+        error.style.display = "none";
+        result.textContent = "";
+
+        if (!id) {
+            error.style.display = "block";
+            return;
+        }
+
+        try {
+            const data = await getCategoryByIdService(id);
+            if (data.id) {
+                result.textContent = `ID: ${data.id} - Nombre: ${data.name}`;
+            } else {
+                result.textContent = "Categoría no encontrada.";
+            }
+        } catch (err) {
+            result.textContent = "Error al buscar la categoría.";
+        }
+    });
+    document.getElementById("btnEliminarCategoria").addEventListener("click", async () => {
+        const id = document.getElementById("eliminarCategoriaId").value.trim();
+        const error = document.getElementById("eliminarCategoryError");
+        const result = document.getElementById("eliminarCategoryResult");
+        error.style.display = "none";
+        result.textContent = "";
+
+        if (!id) {
+            error.style.display = "block";
+            return;
+        }
+
+        try {
+            const data = await deleteCategoryService(id);
+            if (data.message || data.success) {
+                Swal.fire("¡Éxito!", "Categoría eliminada correctamente", "success");
+                result.textContent = "";
+            } else if (data.error) {
+                Swal.fire("Error", data.error, "error");
+            } else {
+                Swal.fire("Error", "No se pudo eliminar la categoría", "error");
+            }
+        } catch (err) {
+            Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+        }
+    });
+    // Lógica para eliminar CARRERA
+     document.getElementById("btnEliminarCarrera")?.addEventListener("click", async () => {
+        const id = document.getElementById("eliminarCarreraId").value.trim();
+        if (!id) {
+            Swal.fire("Error", "Ingresá un ID válido.", "error");
+            return;
+        }
+        try {
+            const data = await deleteCareerService(id);
+            console.log(data); // Para depuración
+            if (data.success || data.message) {
+                Swal.fire("¡Éxito!", "Carrera eliminada correctamente", "success");
+                document.getElementById("eliminarCarreraId").value = "";
+            } else if (data.error) {
+                Swal.fire("Error", data.error, "error");
+            } else {
+                Swal.fire("Error", "No se pudo eliminar la carrera", "error");
+            }
+        } catch (err) {
+            Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+        }
+    });
+    document.getElementById("btnBuscarPorCarrera")?.addEventListener("click", validateAndGetByCareer);
 });
 
-async function eliminarEstudiante() {
-    const id = document.getElementById("deleteStudentId")?.value.trim();
-    if (!id) {
-        Swal.fire("Error", "Ingresá un ID válido", "warning");
-        return;
-    }
-    try {
-        const response = await fetch(`${API_STUDENTS_URL}/${id}`, {
-            method: "DELETE",
-            headers
-        });
-        const data = await response.json();
-        console.log(data); // Para ver la respuesta real
 
-        if (response.ok) {
-            Swal.fire("¡Éxito!", "Estudiante eliminado correctamente", "success");
-        } else if (data.error) {
-            Swal.fire("Error", data.error, "error");
-        } else {
-            Swal.fire("Error", "No se pudo eliminar el estudiante", "error");
-        }
-    } catch (err) {
-        Swal.fire("Error", "No se pudo conectar con el servidor", "error");
-    }
-}
 
 async function guardarEstudiante() {
     const nombre = document.getElementById("nombreEstudiante")?.value.trim();
@@ -566,4 +644,85 @@ async function guardarEstudiante() {
     } catch (err) {
         Swal.fire("Error", "No se pudo conectar con el servidor", "error");
     }
+}
+//listener en el DOMContentLoaded 
+document.addEventListener("DOMContentLoaded", () => {
+    // ...otros listeners...
+    document.getElementById("btnEliminarEstudiante")?.addEventListener("click", validateAndDelete);
+    // ...otros listeners...
+    document.getElementById("btnFiltrar")?.addEventListener("click", validateAndFilterCareer);
+    // ...otros listeners...
+     document.getElementById("btnEliminarCarrera")?.addEventListener("click", validateAndDeleteCareer);
+     // ...otros listeners...
+});
+
+function validateAndFilterCareer() {
+    const career = document.getElementById('careerFilter')?.value.trim();
+    const error = document.getElementById('careerError');
+    const result = document.getElementById('careerResult');
+
+    if (!career) {
+        error.style.display = 'block';
+        result.textContent = '';
+    } else {
+        error.style.display = 'none';
+        filtrarCarrera(career);
+    }
+}
+
+async function filtrarCarrera(career) {
+    const result = document.getElementById('careerResult');
+    try {
+        const response = await fetch(`${API_CAREERS_URL}?name=${encodeURIComponent(career)}`, {
+            headers // <-- Usá este objeto, no lo reescribas
+        });
+        const data = await response.json();
+        if (data && (Array.isArray(data) ? data.length > 0 : data.name)) {
+            result.textContent = JSON.stringify(data, null, 2);
+        } else {
+            result.textContent = "No se encontró ninguna carrera con ese nombre.";
+        }
+    } catch (error) {
+        result.textContent = "Error al buscar la carrera.";
+    }
+}
+
+function validateAndDeleteCareer() {
+    const id = document.getElementById('eliminarCarreraId')?.value.trim();
+    const error = document.getElementById('eliminarCarreraError');
+    const result = document.getElementById('eliminarCarreraResult');
+    if (!id) {
+        error.style.display = 'block';
+        result.textContent = '';
+    } else {
+        error.style.display = 'none';
+        eliminarCarrera(id);
+    }
+}
+
+async function eliminarCarrera(id) {
+    const result = document.getElementById('eliminarCarreraResult');
+    try {
+        const response = await deleteCareerService(id);
+        console.log(response); // Para depuración
+        if (response.success || response.message === "Career deleted successfully." || response.message === "ok") {
+            Swal.fire("¡Éxito!", "Carrera eliminada correctamente", "success");
+            document.getElementById('eliminarCarreraId').value = "";
+            result.textContent = "";
+        } else if (response.error) {
+            Swal.fire("Error", response.error, "error");
+        } else {
+            Swal.fire("Error", "No se pudo eliminar la carrera.", "error");
+        }
+    } catch (error) {
+        Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+    }
+}
+
+async function deleteCareerService(id) {
+    const response = await fetch(`${API_CAREERS_URL}/${id}`, {
+        method: "DELETE",
+        headers // Usa el objeto headers global si tu API lo requiere
+    });
+    return response.json();
 }

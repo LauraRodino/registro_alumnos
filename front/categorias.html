@@ -42,27 +42,25 @@
         </section>
 
         <!-- Buscar categoría por ID -->
-        <section class="form-section p-4 shadow-sm rounded mb-4">
+        <section>
             <h2>Buscar categoría por ID</h2>
             <div class="mb-3">
-                <input type="number" id="categoryId" class="form-control" placeholder="ID de la categoría">
+                <input type="number" id="buscarCategoriaId" class="form-control" placeholder="ID de la categoría">
             </div>
-            <button id="btnBuscarCategoria" class="btn btn-success">Buscar</button>
-            <div class="form-text text-danger" id="getCategoryError">Ingresá un ID válido.</div>
-            <pre id="getCategoryResult" class="mt-2"></pre>
-             <!-- Campo de ID + botón de búsqueda + mensaje de error -->
+            <button id="btnBuscarCategoria" class="btn btn-secondary">Buscar Categoría</button>
+            <div class="form-text text-danger" id="buscarCategoryError" style="display: none;">Ingresá un ID válido.</div>
+            <pre id="buscarCategoryResult" class="mt-2"></pre>
         </section>
 
-        <!-- Eliminar categoría por ID -->
-        <section class="form-section p-4 shadow-sm rounded mb-4">
-            <h2>Eliminar categoría por ID</h2>
+        <!-- Eliminar categoría -->
+        <section>
+            <h2>Eliminar categoría</h2>
             <div class="mb-3">
-                <input type="number" id="deleteCategoryId" class="form-control" placeholder="ID de la categoría a eliminar">
+                <input type="number" id="eliminarCategoriaId" class="form-control" placeholder="ID de la categoría">
             </div>
-            <button id="btnEliminarCategoria" class="btn btn-danger">Eliminar</button>
-            <div class="form-text text-danger" id="deleteCategoryError">Ingresá un ID válido.</div>
-            <pre id="deleteCategoryResult" class="mt-2"></pre>
-                <!-- Campo de ID + botón de eliminación + mensaje de error -->
+            <button id="btnEliminarCategoria" class="btn btn-danger">Eliminar Categoría</button>
+            <div class="form-text text-danger" id="eliminarCategoryError" style="display: none;">Ingresá un ID válido.</div>
+            <pre id="eliminarCategoryResult" class="mt-2"></pre>
         </section>
     </div>
     <!-- Scripts para Bootstrap, alertas y lógica JS -->

@@ -56,3 +56,8 @@ th, td {
 .d-none {
   display: none;
 }
+/* styles.css */
+.error-message {
+    display: none;
+    color: red;
+}

@@ -24,19 +24,11 @@
     "type": "Tecnicatura"
   },
   {
-    "id": 1748307744021,
-    "name": "ytest",
-    "code": "3730",
-    "category": "Ciencias Sociales",
-    "duration": "5",
-    "type": "Grado"
-  },
-  {
-    "id": 1748307744022,
-    "name": "test",
-    "code": "3568",
-    "category": "Ciencias Sociales",
-    "duration": "5",
+    "id": 1748307744024,
+    "name": "sistemas",
+    "code": "2645",
+    "category": "Informática",
+    "duration": "4",
     "type": "Tecnicatura"
   }
 ]

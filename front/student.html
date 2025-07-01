@@ -49,7 +49,6 @@
         <span class="input-group-text"><i class="bi bi-journal-bookmark-fill"></i></span>
         <select id="registerCareer" class="form-control">
             <option value="">Selecciona una carrera</option>
-    
         </select>
     </div>
 
@@ -77,42 +76,17 @@
     <!-- Botón de búsqueda + mensaje de error -->
 </section>
 
-<!-- Buscar estudiantes por carrera -->
-<section>
-    <h2>Buscar por carrera</h2>
-    <div class="input-group mb-2">
-        <span class="input-group-text"><i class="bi bi-search"></i></span>
-        <select id="careerFilter" class="form-control">
-            <option value="">Selecciona una carrera</option>
-            <option value="Profesorado de Educación Inicial">Profesorado de Educación Inicial</option>
-            <option value="Profesorado de Inglés">Profesorado de Inglés</option>
-            <option value="Tecnicatura en Enfermería">Tecnicatura en Enfermería</option>
-            <option value="Tecnicatura en Ciencia de Datos e IA">Tecnicatura en Ciencia de Datos e IA</option>
-            <option value="Especialización en Salud Mental">Especialización en Salud Mental</option>
-        </select>
-    </div>
-    <button class="btn btn-primary btn-sm" onclick="validateAndGetByCareer()">Buscar</button>
-
-    <div class="form-text text-danger" id="careerError" style="display: none;">Ingresá una carrera.</div>
-    <pre id="careerResult" class="mt-2"></pre>
-     <!-- Select fijo con listado de carreras -->
-    <!-- Botón de búsqueda + mensaje de error -->
-</section>
 
 <!-- Eliminar estudiante -->
-<section>
+<section id="eliminar-estudiante-section">
     <h2>Eliminar estudiante</h2>
-    <div class="input-group mb-2">
-        <span class="input-group-text"><i class="bi bi-trash-fill"></i></span>
-        <input type="number" id="deleteStudentId" class="form-control" placeholder="ID del estudiante a eliminar">
+    <div class="mb-3">
+        <input type="number" id="deleteId" class="form-control" placeholder="ID del estudiante">
+        <span id="deleteError" class="error-message">Ingresá un ID válido</span>
     </div>
-    <button id="btnEliminarEstudiante" class="btn btn-danger">Eliminar Estudiante</button>
-    <div class="form-text text-danger" id="deleteError" style="display: none;">Ingresá un ID válido.</div>
-    <pre id="deleteResult" class="mt-2"></pre>
-       <!-- Campo de ID del estudiante a eliminar -->
-    <!-- Botón de eliminación + mensaje de error -->
+    <button id="btnEliminarEstudiante" class="btn btn-danger">Eliminar</button>
+    <div id="deleteResult"></div>
 </section>
-
 
 <!-- Scripts -->
  <!-- Scripts necesarios para Bootstrap, alertas y lógica del sistema -->
@@ -120,19 +94,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="app.js"></script>
 <script>
-    function validateAndRegister() {
-        const name = document.getElementById("registerName").value.trim();
-        const career = document.getElementById("registerCareer").value;
-        if (!name || !career) {
-            document.getElementById("registerError").style.display = "block";
-            return;
-        }
-        document.getElementById("registerError").style.display = "none";
-        // Aquí iría la lógica para registrar el estudiante
-        Swal.fire("¡Éxito!", "Estudiante registrado correctamente", "success");
-    }
-</script>
-
 </body>
 </html>
 

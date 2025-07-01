@@ -5,11 +5,6 @@
     "career": "Ciencia de Datos"
   },
   {
-    "id": 3,
-    "name": "skaksak",
-    "career": "Ingeniería de Software"
-  },
-  {
     "id": 4,
     "name": "ia",
     "career": "Ciencias de la Computación"
@@ -115,11 +110,6 @@
     "career": "ia"
   },
   {
-    "id": 27,
-    "name": "laura rodino",
-    "career": "Profesorado de Educación Inicial"
-  },
-  {
     "id": 28,
     "name": "fatima maciel",
     "career": "ia"
@@ -131,22 +121,12 @@
   },
   {
     "id": 30,
-    "name": "rodrigo sarmiento",
-    "career": "ia"
+    "name": "laura",
+    "career": "Profesorado de Educación Inicial"
   },
   {
     "id": 31,
-    "name": "hdfgjbknm,",
-    "career": "Profesorado de Educación Inicial"
-  },
-  {
-    "id": 32,
-    "name": "carla carrera",
-    "career": "Profesorado de Educación Inicial"
-  },
-  {
-    "id": 33,
-    "name": "callll",
-    "career": "Ciencia de datos"
+    "name": "ariel",
+    "career": "Profesorado de Inglés"
   }
 ]
