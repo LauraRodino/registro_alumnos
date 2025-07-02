@@ -30,5 +30,21 @@
     "category": "Informática",
     "duration": "4",
     "type": "Tecnicatura"
+  },
+  {
+    "id": 1748307744025,
+    "name": "logica",
+    "code": "7332",
+    "category": "Ciencias Exactas",
+    "duration": "4",
+    "type": "Tecnicatura"
+  },
+  {
+    "id": 1748307744026,
+    "name": "test",
+    "code": "5546",
+    "category": "Ciencias Sociales",
+    "duration": "4",
+    "type": "Profesorado"
   }
 ]

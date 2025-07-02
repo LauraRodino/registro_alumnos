@@ -317,6 +317,25 @@ async function cargarSelectCarreras() {
     }
 }
 
+// Nueva función para cargar categorías en el registro de estudiante
+async function cargarSelectCategorias() {
+    const selectCategoria = document.getElementById("categoria");
+    if (!selectCategoria) return;
+    selectCategoria.innerHTML = '<option value="">Seleccione una categoría</option>';
+    try {
+        const response = await fetch("/registro_alumnos/api/categories.json");
+        const categorias = await response.json();
+        categorias.forEach(cat => {
+            const option = document.createElement("option");
+            option.value = cat.name;
+            option.textContent = cat.name;
+            selectCategoria.appendChild(option);
+        });
+    } catch (error) {
+        console.error("No se pudieron cargar las categorías:", error);
+    }
+}
+
 // Funciones para carreras
 // Guarda una nueva carrera con todos sus datos en la API
 async function guardarCarrera() {
@@ -511,6 +530,7 @@ async function eliminarCategoria() {
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarSelectCarreras();
+    cargarSelectCategorias();
     document.getElementById("btnGuardar")?.addEventListener("click", guardarCarrera);
     document.getElementById("btnGuardarCategoria").addEventListener("click", async () => {
         const nombre = document.getElementById("nombreCategoria").value.trim();
