@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1748384124357,
+    "name": "Ciencia de datos"
+  },
+  {
+    "id": 1748307744017,
+    "name": "ia"
+  },
+  {
+    "id": 1748307744018,
+    "name": "Profesorado de Educación Inicial"
+  },
+  {
+    "id": 1748307744019,
+    "name": "Profesorado de Inglés"
+  },
+  {
+    "id": 1748307744020,
+    "name": "Ciencia de Datos e Inteligencia Artificial",
+    "code": "7",
+    "category": "Informática",
+    "duration": "3",
+    "type": "Tecnicatura"
+  },
+  {
+    "id": 1748307744024,
+    "name": "sistemas",
+    "code": "2645",
+    "category": "Informática",
+    "duration": "4",
+    "type": "Tecnicatura"
+  },
+  {
+    "id": 1748307744025,
+    "name": "logica",
+    "code": "7332",
+    "category": "Ciencias Exactas",
+    "duration": "4",
+    "type": "Tecnicatura"
+  },
+  {
+    "id": 1748307744026,
+    "name": "test",
+    "code": "5546",
+    "category": "Ciencias Sociales",
+    "duration": "4",
+    "type": "Profesorado"
+  }
+]

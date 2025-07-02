@@ -1,1 +1,132 @@
-[]
+[
+  {
+    "id": 2,
+    "name": "juanma",
+    "career": "Ciencia de Datos"
+  },
+  {
+    "id": 4,
+    "name": "ia",
+    "career": "Ciencias de la Computación"
+  },
+  {
+    "id": 5,
+    "name": "dihuen",
+    "career": "sisiis"
+  },
+  {
+    "id": 6,
+    "name": "juan",
+    "career": "Ciencias de la Computación"
+  },
+  {
+    "id": 7,
+    "name": "lalalsla",
+    "career": "Ingeniería de Software"
+  },
+  {
+    "id": 8,
+    "name": "enzo",
+    "career": "Ciencia de Datos"
+  },
+  {
+    "id": 9,
+    "name": "pepe",
+    "career": "Ciencias de la Computación"
+  },
+  {
+    "id": 10,
+    "name": "julian",
+    "career": "Ciencias de la Computación"
+  },
+  {
+    "id": 11,
+    "name": "ia",
+    "career": "Ingeniería en Sistemas"
+  },
+  {
+    "id": 12,
+    "name": "LAURA RODINÓ",
+    "career": "CIENCIA DE DATOS"
+  },
+  {
+    "id": 13,
+    "name": "laura rodino",
+    "career": "ciencia de datos"
+  },
+  {
+    "id": 14,
+    "name": "laura rodino",
+    "career": "ciencia de datos"
+  },
+  {
+    "id": 15,
+    "name": "laura rodino",
+    "career": "ia"
+  },
+  {
+    "id": 16,
+    "name": "laura",
+    "career": "ia"
+  },
+  {
+    "id": 17,
+    "name": "carla",
+    "career": "ia"
+  },
+  {
+    "id": 18,
+    "name": "fatima",
+    "career": "ia"
+  },
+  {
+    "id": 19,
+    "name": "carla",
+    "career": "ciencia de datos"
+  },
+  {
+    "id": 20,
+    "name": "fatima",
+    "career": "ciencia de datos"
+  },
+  {
+    "id": 21,
+    "name": "laura",
+    "career": "ciencia de datos"
+  },
+  {
+    "id": 22,
+    "name": "Laura Rodino",
+    "career": "Ciencia de datos"
+  },
+  {
+    "id": 23,
+    "name": "Fatima Maciel",
+    "career": "Ciencia de datos"
+  },
+  {
+    "id": 25,
+    "name": "carla carrera",
+    "career": "ia"
+  },
+  {
+    "id": 28,
+    "name": "fatima maciel",
+    "career": "ia"
+  },
+  {
+    "id": 29,
+    "name": "carla carrera",
+    "career": "Profesorado de Inglés"
+  },
+  {
+    "id": 30,
+    "name": "laura",
+    "career": "Profesorado de Educación Inicial"
+  },
+  {
+    "id": 31,
+    "name": "ariel",
+    "career": "Profesorado de Inglés"
+  }
+]

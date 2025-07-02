@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1748307744017,
+    "name": "ia"
+  },
+  {
+    "id": 1748307744018,
+    "name": "Profesorado de Educación Inicial"
+  },
+  {
+    "id": 1748307744019,
+    "name": "Profesorado de Inglés"
+  },
+  {
+    "id": 1748307744020,
+    "name": "Ciencia de Datos e Inteligencia Artificial",
+    "code": "7",
+    "category": "Informática",
+    "duration": "3",
+    "type": "Tecnicatura"
+  },
+  {
+    "id": 1748307744021,
+    "name": "Especialización en Salud Mental"
+  },
+  {
+    "id": 1748307744022,
+    "name": "Enfermeria"
+  },
+  {
+    "id": 1748307744023,
+    "name": "Ciencia de Datos"
+  },
+  {
+    "id": 1748307744024,
+    "name": "Profesorado"
+  },
+  {
+    "id": 1748307744025,
+    "name": "matematica"
+  },
+  {
+    "id": 1748307744026,
+    "name": "Seguridad e Higiene"
+  },
+  {
+    "id": 1748307744027,
+    "name": "test"
+  },
+  {
+    "id": 1748307744028,
+    "name": "ciencias medicas"
+  }
+]
